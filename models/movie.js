@@ -28,7 +28,7 @@ const movieSchema = new mongoose.Schema(
     required: [true, 'Поле "image" должно быть заполнено'],
     validate: {
       validator(image) {
-        return validator.isEmail(image);
+        return validator.isURL(image);
       },
       message: '400 Введён некорректный image-link',
     }
@@ -38,7 +38,7 @@ const movieSchema = new mongoose.Schema(
     required: [true, 'Поле "trailerLink" должно быть заполнено'],
     validate: {
       validator(trailerLink) {
-        return validator.isEmail(trailerLink);
+        return validator.isURL(trailerLink);
       },
       message: '400 Введён некорректный trailerLink',
     }
@@ -48,7 +48,7 @@ const movieSchema = new mongoose.Schema(
     required: [true, 'Поле "thumbnail" должно быть заполнено'],
     validate: {
       validator(thumbnail) {
-        return validator.isEmail(thumbnail);
+        return validator.isURL(thumbnail);
       },
       message: '400 Введён некорректный thumbnail-link',
     }
@@ -59,7 +59,7 @@ const movieSchema = new mongoose.Schema(
     required: true,
   },
   movieId: {
-    type: Number,
+    type: String,
     required: [true, 'Поле "movieId" должно быть заполнено']
   },
   nameRU: {

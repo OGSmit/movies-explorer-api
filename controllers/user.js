@@ -16,16 +16,16 @@ module.exports.getMe = (req, res, next) => {
 // обновляет информацию о пользователе (email и имя)
 module.exports.updateUser = (req, res, next) => {
   const {
+    email,
     name,
-    about,
   } = req.body;
 
   User
     .findByIdAndUpdate(
       req.user._id,
       {
+        email,
         name,
-        about,
       },
       {
         new: true,
@@ -70,11 +70,13 @@ module.exports.createUser = (req, res, next) => {
 };
 
 // проверяет переданные в теле почту и пароль и возвращает JWT
+const { JWT_SECRET } = process.env;
+
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, 'super-puper-secret-key', { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, process.env.NODE_ENV !== 'production' ? 'super-puper-secret-key' : JWT_SECRET, { expiresIn: '7d' });
       res.status(200).send({ token });
     })
     .catch(next);

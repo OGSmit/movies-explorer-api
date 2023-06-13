@@ -3,8 +3,12 @@ const NotFoundError = require('../error/not-found-error');
 
 // возвращает все сохранённые текущим пользователем фильмы
 module.exports.getMovieList = (req, res, next) => {
-  Movie.find({})
-    .then((movies) => res.send(movies))
+  const ownerId = req.user._id
+  Movie.find({owner: ownerId})
+    .then((movies) => {
+      console.log(movies)
+      res.send(movies)
+    })
     .catch(next);
 };
 
@@ -19,9 +23,12 @@ module.exports.createMovieByResBody = (req, res, next) => {
     image,
     trailer,
     thumbnail,
+    movieId,
     nameRU,
     nameEN
   } = req.body;
+
+  const owner = req.user._id
 
   Movie.create({
     country,
@@ -32,6 +39,8 @@ module.exports.createMovieByResBody = (req, res, next) => {
     image,
     trailer,
     thumbnail,
+    owner,
+    movieId,
     nameRU,
     nameEN
     })
@@ -42,7 +51,7 @@ module.exports.createMovieByResBody = (req, res, next) => {
 };
 
 // удаляет сохранённый фильм по id
-module.exports.deleteCardById = (req, res, next) => {
+module.exports.deleteMovieById = (req, res, next) => {
   const { movieId } = req.params;
   Movie.findById(movieId)
     .then((movie) => {
