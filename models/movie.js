@@ -5,23 +5,23 @@ const movieSchema = new mongoose.Schema(
   {
    country: {
     type: String,
-    required: [true, 'Поле "country" должно быть заполнено']
+    required: [true, 'Поле "country" должно быть заполнено'],
    },
    director: {
     type: String,
-    required: [true, 'Поле "director" должно быть заполнено']
+    required: [true, 'Поле "director" должно быть заполнено'],
    },
    duration: {
     type: Number,
-    required: [true, 'Поле "duration" должно быть заполнено']
+    required: [true, 'Поле "duration" должно быть заполнено'],
    },
    year: {
     type: String,
-    required: [true, 'Поле "year" должно быть заполнено']
+    required: [true, 'Поле "year" должно быть заполнено'],
    },
    description: {
     type: String,
-    required: [true, 'Поле "description" должно быть заполнено']
+    required: [true, 'Поле "description" должно быть заполнено'],
    },
    image: {
     type: String,
@@ -31,7 +31,7 @@ const movieSchema = new mongoose.Schema(
         return validator.isURL(image);
       },
       message: '400 Введён некорректный image-link',
-    }
+    },
    },
    trailer: {
     type: String,
@@ -41,7 +41,7 @@ const movieSchema = new mongoose.Schema(
         return validator.isURL(trailerLink);
       },
       message: '400 Введён некорректный trailerLink',
-    }
+    },
    },
    thumbnail: {
     type: String,
@@ -51,7 +51,7 @@ const movieSchema = new mongoose.Schema(
         return validator.isURL(thumbnail);
       },
       message: '400 Введён некорректный thumbnail-link',
-    }
+    },
    },
    owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -60,15 +60,15 @@ const movieSchema = new mongoose.Schema(
   },
   movieId: {
     type: String,
-    required: [true, 'Поле "movieId" должно быть заполнено']
+    required: [true, 'Поле "movieId" должно быть заполнено'],
   },
   nameRU: {
     type: String,
-    required: [true, 'Поле "nameRU" должно быть заполнено']
+    required: [true, 'Поле "nameRU" должно быть заполнено'],
   },
-  nameEN : {
+  nameEN: {
     type: String,
-    required: [true, 'Поле "nameEN " должно быть заполнено']
+    required: [true, 'Поле "nameEN " должно быть заполнено'],
   }
   },
   { versionKey: false },

@@ -2,12 +2,13 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const NotFoundError = require('../error/not-found-error');
+const { notFoundErrorMessage } = require('../constants/errorText');
 
 // возвращает информацию о пользователе (email и имя)
 module.exports.getMe = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(() => {
-      next(new NotFoundError('пользователь с таким id - отсутствует'));
+      next(new NotFoundError(notFoundErrorMessage));
     })
     .then((user) => res.send({ data: user }))
     .catch(next);
@@ -37,7 +38,7 @@ module.exports.updateUser = (req, res, next) => {
       .send({ data: user }))
     .catch((err) => {
       if (err.name === 'DocumentNotFoundError') {
-        next(new NotFoundError('пользователь с таким id - отсутствует'));
+        next(new NotFoundError(notFoundErrorMessage));
       } else {
         next(err);
       }

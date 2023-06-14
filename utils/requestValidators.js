@@ -34,13 +34,12 @@ module.exports.createMovieBodyValidator = celebrate({
     thumbnail: Joi.string().required().pattern(/^(https?|ftp|file):\/\/[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]/),
     movieId: Joi.string().required(), // еще не знаю свойства
     nameRU: Joi.string().required().min(2),
-    nameEN: Joi.string().required().min(2)
-  })
-})
+    nameEN: Joi.string().required().min(2),
+  }),
+});
 
 module.exports.movieIdParamsValidator = celebrate({
   params: Joi.object().keys({
     userId: Joi.string().required().hex().length(24),
   }),
 });
-

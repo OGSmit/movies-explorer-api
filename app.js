@@ -8,12 +8,13 @@ const { errors } = require('celebrate');
 const router = require('./routes/index');
 const errorHandler = require('./utils/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const limiter = require('./utils/limiter')
+const limiter = require('./utils/limiter');
+const mongoPath = require('./constants/mongo');
 
-const { PORT, DB_ADRESS } = process.env;
+const { PORT = 3000, DB_ADRESS } = process.env;
 const app = express();
 
-app.use(cors()); // настройка будет после деплоя фронта 
+app.use(cors()); // настройка будет после деплоя фронта
 
 app.use(helmet());
 
@@ -21,7 +22,7 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(DB_ADRESS);
+mongoose.connect(process.env.NODE_ENV !== 'production' ? mongoPath : DB_ADRESS);
 
 app.use(requestLogger);
 
