@@ -17,8 +17,8 @@ module.exports.signInBodyValidator = celebrate({
 
 module.exports.updateUserBodyValidator = celebrate({
   body: Joi.object().keys({
+    name: Joi.string().min(2).max(30),
     email: Joi.string().required().email(),
-    password: Joi.string().required().pattern(/^[a-zA-Z0-9]{3,30}$/).min(8),
   }),
 });
 
